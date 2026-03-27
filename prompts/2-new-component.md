@@ -1,0 +1,177 @@
+# Prompt 2: Component Development
+
+Add a [COMPONENT TABLE] to the project using shadcn/ui.
+
+## Workflow
+
+**Common shadcn components:**
+
+- **Layout:** Card, Separator, Tabs, Accordion, Collapsible
+- **Forms:** Button, Input, Select, Checkbox, Radio, Switch, Textarea, Label, Form
+- **Feedback:** Alert, Toast, Progress, Skeleton, Badge
+- **Overlay:** Dialog, Drawer, Popover, Tooltip, Dropdown Menu, Context Menu, Alert Dialog
+- **Navigation:** Navigation Menu, Breadcrumb, Pagination, Command
+- **Data:** Table, Data Table, Calendar, Chart
+
+This adds the component to `/components/ui/`.
+It automatically uses CSS variables from `globals.css`.
+
+Review the installed component to understand:
+
+- Available variants (size, style, etc.)
+- Props interface
+- How it uses CSS variables
+
+### 3. Customize Component (if needed)
+
+If the base component needs additional variants or behavior, create a wrapped version in `/components/[ComponentName].tsx`:
+
+```tsx
+import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
+
+interface CustomButtonProps extends React.ComponentProps<typeof Button> {
+  intent?: "default" | "success" | "warning" | "info";
+}
+
+export function CustomButton({
+  intent = "default",
+  className,
+  ...props
+}: CustomButtonProps) {
+  return (
+    <Button
+      className={cn(
+        // Use CSS variables via Tailwind classes
+        intent === "success" &&
+          "bg-success text-success-foreground hover:bg-success/90",
+        intent === "warning" &&
+          "bg-warning text-warning-foreground hover:bg-warning/90",
+        intent === "info" && "bg-info text-info-foreground hover:bg-info/90",
+        className,
+      )}
+      {...props}
+    />
+  );
+}
+```
+
+**Customization patterns:**
+
+- Add new color variants using your CSS variables (`bg-success`, `text-warning`, etc.)
+- Add new size variants
+- Compose multiple shadcn components together
+- Add loading states, icons, or other features
+
+### 4. Build Custom Component (if not in shadcn)
+
+If shadcn doesn't have this component, build it using:
+
+- shadcn primitives as building blocks
+- CSS variables via Tailwind classes
+- shadcn's patterns for consistency
+
+```tsx
+import { cn } from "@/lib/utils";
+
+interface CustomWidgetProps {
+  variant?: "default" | "primary" | "muted";
+  children: React.ReactNode;
+  className?: string;
+}
+
+export function CustomWidget({
+  variant = "default",
+  children,
+  className,
+}: CustomWidgetProps) {
+  return (
+    <div
+      className={cn(
+        "rounded-lg border p-4",
+        variant === "default" && "bg-card text-card-foreground border-border",
+        variant === "primary" &&
+          "bg-primary text-primary-foreground border-primary",
+        variant === "muted" && "bg-muted text-muted-foreground border-border",
+        className,
+      )}
+    >
+      {children}
+    </div>
+  );
+}
+```
+
+### 5. Create Component Showcase
+
+Add to `/app/styleguide/components/[component-name]/page.tsx`:
+
+- All variants side by side (sizes, colors, styles)
+- All states (default, hover, focus, disabled, loading)
+- Dark mode preview (toggle between light/dark)
+- Interactive demo with prop controls
+- Code examples for common use cases
+
+Use examples from shadcn MCP (`get_item_examples_from_registries`) as reference.
+
+### 6. Document Usage
+
+Include in the showcase page:
+
+- Import statement
+- Basic usage example
+- All available props with types and defaults
+- Variant examples with code
+- Accessibility notes (keyboard navigation, ARIA attributes)
+
+### 7. Update Styleguide Navigation
+
+Add the new component to `/app/styleguide/navigation.ts`:
+
+In the "Components" section, add a new entry:
+
+```ts
+{
+  title: "Components",
+  items: [
+    // ... existing components
+    { name: "[Component Name]", href: "/styleguide/components/[component-name]" },
+  ]
+}
+```
+
+This makes the component appear in the styleguide sidebar navigation.
+
+## Directory Structure
+
+```
+components/
+├── ui/                    # Base shadcn components (auto-generated)
+│   ├── button.tsx
+│   ├── card.tsx
+│   └── ...
+└── [CustomComponent].tsx  # Your customized/new components
+
+app/
+└── styleguide/
+    └── components/
+        └── [component-name]/
+            └── page.tsx   # Component showcase
+```
+
+## Output
+
+- Component installed/created in `/components/`
+- Showcase page in `/app/styleguide/components/[name]/`
+- Navigation updated in `/app/styleguide/navigation.ts`
+- Component visible in styleguide sidebar
+- Usage documented with code examples
+
+---
+
+## Notes
+
+- **CSS variables** are the source of truth (defined in `globals.css`)
+- **Tailwind classes** reference CSS variables (`bg-primary`, `text-muted-foreground`)
+- **No Figma needed** for component development - shadcn defines the design
+- **Extend, don't rebuild** - customize shadcn components rather than building from scratch

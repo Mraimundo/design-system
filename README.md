@@ -7,8 +7,6 @@
 
 ## Print do projeto final (screenshots)
 
-<img width="2560" height="1766" alt="Image" src="https://github.com/user-attachments/assets/eb0da39f-e226-4d57-af2e-20011c03bbef" />
-
 <img width="2560" height="7984" alt="Image" src="https://github.com/user-attachments/assets/126607d6-d5e8-4b33-8aed-06907e7ca8b4" />
 
 ## 2. Estrutura do repositório (resumo)

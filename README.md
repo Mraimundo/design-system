@@ -5,6 +5,12 @@
 - Propósito: Fornecer um conjunto reutilizável de componentes UI, padrões e utilitários para aplicações frontend do projeto. Inclui um styleguide (páginas sob `src/app/styleguide`) para visualizar componentes e exemplos.
 - Tecnologias: Next.js (app router), TypeScript, React. Estilos via `globals.css` e PostCSS (`postcss.config.mjs`). Estrutura modular com componentes compartilhados em `src/shared/components/ui` e módulos específicos em `src/modules`.
 
+## Print do projeto final (screenshots)
+
+<img width="2560" height="1766" alt="Image" src="https://github.com/user-attachments/assets/eb0da39f-e226-4d57-af2e-20011c03bbef" />
+
+<img width="2560" height="7984" alt="Image" src="https://github.com/user-attachments/assets/126607d6-d5e8-4b33-8aed-06907e7ca8b4" />
+
 ## 2. Estrutura do repositório (resumo)
 
 - `src/`
